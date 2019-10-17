@@ -1,0 +1,56 @@
+<div>
+    <form [formGroup]="searchForm">
+        <h5 class="text-orange">Search by Book / Author</h5>
+        <div class="input-group">
+            <input type="text" class="form-control" formControlName="bookName"
+                aria-label="Text input with segmented dropdown button" placeholder="Book Name" (keyup)="onSearch()">
+            <input type="text" class="form-control" formControlName="authorName"
+                aria-label="Text input with segmented dropdown button" placeholder="Author Name" (keyup)="onSearch()">
+            <!-- <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04"
+                    (click)="onSearch()">Search</button>
+            </div> -->
+        </div>
+    </form>
+</div>
+<div class="mt-4">
+    <div class="card mb-3" *ngFor="let book of books">
+        <div class="row no-gutters">
+            <div class="col-md-2">
+                <img [src]="bookImages[0]" class="card-img" alt="Book Name" style="max-width:110px;">
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                    <h5 class="card-title">{{book.bookName}}</h5>
+                    <p class="card-title">{{book.authorName}}</p>
+                    <p class="card-title">{{book.isbn}}</p>
+                    <p class="card-text">
+                        <small class="text-muted">Author: {{book.publicationYear}}</small>
+                    </p>
+                    <p class="card-text">
+                        <span *ngIf="book.availabilityStatus == 'Y'">
+                            <button class="btn btn-primary" (click)="onBook(book.bookId)">Book Now</button>
+                        </span>
+                        <span *ngIf="book.availabilityStatus == 'N'">
+                            <button class="btn btn-primary" (click)="onRequest(book.bookId)">Request</button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="float-right">
+        <nav>
+            <ul class="pagination pagination-md">
+                <a *ngFor="let page of pagination;let i=index" (click)="onPagination(i)" class="page-item"
+                    [class.active]="paginationActive == i">
+                    <span class="page-link">
+                        {{page.id}}
+                        <span *ngIf="paginationActive == i" class="sr-only">(current)</span>
+                    </span>
+                </a>
+            </ul>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+.category {
+    .nav-link {
+        padding: 10px;
+        &.active {
+            background: #ff6803;
+            color: white;
+        }
+    }
+}

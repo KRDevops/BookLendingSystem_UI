@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    line-height: 1.4 !important;
+}
+
+.text-orange {
+    color: #ff6803;
+}
+
+.bg-orange {
+    background: #ff6803;
+}
+
+.btn-orange {
+    background: #ff6803;
+    border: #ff6803;
+}
+
+.btn-primary, .btn-primary.disabled, .btn-primary:disabled, .btn-primary:hover, .btn-primary:active {
+    background-color: #2c3868;
+    border-color: #2c3868;
+}
+
+.btn-gray {
+    background: #EEE;
+}
+
+.line-height {
+    line-height: 1.4 !important;
+}
+
+.border-orange {
+    border-color: #ff6803;
+}
+
+.required {
+    color: #ff6803;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
