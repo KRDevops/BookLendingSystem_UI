@@ -35,6 +35,11 @@ export class BooksComponent implements OnInit {
     });
   }
 
+  /**
+   * Search all books based on search creteria
+   * @var bookName string
+   * @var authorName string
+   */
   onSearch = () => {
     if ((this.searchForm.get('bookName').value).length >= 3 || (this.searchForm.get('authorName').value).length >= 3) {
       this.bookService.search(this.searchForm.get('bookName').value, this.searchForm.get('authorName').value, 0).subscribe(res => {
@@ -45,26 +50,43 @@ export class BooksComponent implements OnInit {
     }
   }
 
-  onBook = (bookId: number) => {
+  /**
+   * Borrow an book
+   * @var userId number
+   * @var bookId number
+   */
+  onBook = (book: Book, bookId: number) => {
     this.bookService.request({
       userId: this.userService.isUserLoggedIn.value.userId,
       bookId: bookId,
       transactionType: 'Borrow'
     }).subscribe(res => {
+      book.availabilityStatus = 'N';
       alert('Booked Successfully');
     });
   }
 
-  onRequest = (bookId: number) => {
+  /**
+   * Request an book
+   * @var book object
+   * @var bookId number
+   */
+  onRequest = (book: Book, bookId: number) => {
     this.bookService.request({
       userId: this.userService.isUserLoggedIn.value.userId,
       bookId: bookId,
       transactionType: 'Request'
     }).subscribe(res => {
+      book.availabilityStatus = 'Y';
       alert('Requested Successfully');
     });
   }
 
+  /**
+   * Calulate of Pagination and return
+   * @var count number
+   * @var perPage number
+   */
   generatePagination = (count: number, perPage: number) => {
     if ((count / perPage)) {
       return Array(Math.ceil(count / perPage)).fill(0).map((x, i) => ({ id: i + 1 }));
@@ -72,6 +94,10 @@ export class BooksComponent implements OnInit {
     return [];
   }
 
+  /**
+   * Pagination Callback
+   * @var pageId number
+   */
   onPagination = (pageId: number) => {
     this.bookService.search(this.searchForm.get('bookName').value, this.searchForm.get('authorName').value, pageId).subscribe(res => {
       let r: any = res;

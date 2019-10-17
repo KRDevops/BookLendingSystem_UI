@@ -5,13 +5,12 @@
     <table class="table border">
         <thead>
             <tr>
-                <th style="min-width: 180px !important;">Transaction</th>
-                <th>Book Name</th>
+                <th>Transaction</th>
+                <th>Book</th>
                 <th>Author Name</th>
                 <th>Category</th>
                 <th>Publication Year</th>
                 <th>ISBN Number</th>
-                <th>Available/Action</th>
             </tr>
         </thead>
         <tbody *ngIf="!orders.length>0">
@@ -23,22 +22,16 @@
             <tr *ngFor="let order of orders; let i = index">
                 <td style="min-width: 180px !important;">
                     <div>Trans Id: {{order.transactionId}}</div>
-                    <div>Book Id: {{order.bookId.bookId}}</div>
                     <div>Trans Type: {{order.transactionType}}</div>
                 </td>
-                <td>{{order.bookId.bookName}}</td>
+                <td style="min-width: 180px !important;">
+                    <div>Book Name: {{order.bookId.bookName}}</div>
+                    <div>Book Id: {{order.bookId.bookId}}</div>
+                </td>
                 <td>{{order.bookId.authorName}}</td>
                 <td>{{order.bookId.category}}</td>
                 <td>{{order.bookId.publicationYear}}</td>
                 <td>{{order.bookId.isbn}}</td>
-                <td>
-                    <div *ngIf="order.bookId.availabilityStatus == 'Y'">
-                        <button class="btn btn-orange btn-xs">Request</button>
-                    </div>
-                    <div *ngIf="order.bookId.availabilityStatus == 'N'">
-                        <span class="text-danger">Not Available</span>
-                    </div>
-                </td>
             </tr>
         </tbody>
     </table>

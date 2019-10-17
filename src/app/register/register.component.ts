@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  onRegister() {
+  onRegister = () => {
     this.userService.create(this.registerForm.value).subscribe(res => {
       this.submitted = true;
       const r: any = res;

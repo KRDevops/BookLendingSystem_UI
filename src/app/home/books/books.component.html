@@ -29,10 +29,10 @@
                     </p>
                     <p class="card-text">
                         <span *ngIf="book.availabilityStatus == 'Y'">
-                            <button class="btn btn-primary" (click)="onBook(book.bookId)">Book Now</button>
+                            <button class="btn btn-primary" (click)="onBook(book,book.bookId)">Book Now</button>
                         </span>
                         <span *ngIf="book.availabilityStatus == 'N'">
-                            <button class="btn btn-primary" (click)="onRequest(book.bookId)">Request</button>
+                            <button class="btn btn-primary" (click)="onRequest(book,book.bookId)">Request</button>
                         </span>
                     </p>
                 </div>

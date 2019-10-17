@@ -32,6 +32,10 @@ export class AddBookComponent implements OnInit {
     });
   }
 
+  /**
+   * Add an book
+   * @var userId number
+   */
   onAddBook = () => {
     this.submitted = true;
     this.success = false;

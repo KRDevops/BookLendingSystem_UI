@@ -27,14 +27,23 @@ export class UserService {
     return JSON.parse(localStorage.getItem('login'));
   }
 
+  /**
+   * Register a user
+   */
   create = (user: User) => {
     return this.http.post(`${environment.apiDomain}/registration`, user);
   }
 
+  /**
+   * Login a user
+   */
   login = (user: User) => {
     return this.http.post(`${environment.apiDomain}/login`, user);
   }
 
+  /**
+   * Logout a user
+   */
   logOut = () => {
     localStorage.removeItem('login');
     this.isUserLoggedIn.next(null);
