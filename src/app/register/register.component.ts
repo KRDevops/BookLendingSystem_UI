@@ -36,12 +36,26 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  /**
+   * getter for access form fields easily
+   */
+  get f() {
+    return this.registerForm.controls;
+  }
+
+  /**
+   * Register an user
+   */
   onRegister = () => {
+    this.submitted = true;
+    if (!this.registerForm.valid) {
+      return;
+    }
+
     this.userService.create(this.registerForm.value).subscribe(res => {
-      this.submitted = true;
       const r: any = res;
       this.message = r.message;
-      // this.registerForm.clear()
+      this.registerForm.reset();
       this.router.navigate(['/login']);
     });
   }

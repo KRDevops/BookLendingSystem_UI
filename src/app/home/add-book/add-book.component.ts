@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookService } from '../book.service';
 import { UserService } from 'src/app/login/user.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-book',
@@ -14,12 +13,13 @@ export class AddBookComponent implements OnInit {
   bookForm: FormGroup;
   submitted: boolean = false;
   success: boolean = false;
+  error: boolean = false;
+  message: string = null;
 
   constructor(
     private fb: FormBuilder,
     private bookService: BookService,
-    private userService: UserService,
-    private router: Router
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -27,9 +27,16 @@ export class AddBookComponent implements OnInit {
       bookName: ['', Validators.required],
       authorName: ['', Validators.required],
       category: ['', Validators.required],
-      publicationYear: ['', Validators.required],
-      isbn: ['', Validators.required],
+      publicationYear: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      isbn: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
     });
+  }
+
+  /**
+   * getter for access form fields easily
+   */
+  get f() {
+    return this.bookForm.controls;
   }
 
   /**
@@ -39,13 +46,19 @@ export class AddBookComponent implements OnInit {
   onAddBook = () => {
     this.submitted = true;
     this.success = false;
+    this.error = false;
+    if (!this.bookForm.valid) {
+      return;
+    }
+
     const obj = this.bookForm.value;
     obj.userId = this.userService.isUserLoggedIn.value.userId;
     this.bookService.add(obj).subscribe(res => {
       this.success = true;
-      setTimeout(() => {
-        this.router.navigate(['/home/history']);
-      }, 5000);
+      this.bookForm.reset();
+    }, err => {
+      this.error = true;
+      this.message = err.error.message;
     });
   }
 

@@ -61,8 +61,8 @@ export class BooksComponent implements OnInit {
       bookId: bookId,
       transactionType: 'Borrow'
     }).subscribe(res => {
-      book.availabilityStatus = 'N';
       alert('Booked Successfully');
+      this.onSearch();
     });
   }
 
@@ -77,8 +77,8 @@ export class BooksComponent implements OnInit {
       bookId: bookId,
       transactionType: 'Request'
     }).subscribe(res => {
-      book.availabilityStatus = 'Y';
       alert('Requested Successfully');
+      this.onSearch();
     });
   }
 

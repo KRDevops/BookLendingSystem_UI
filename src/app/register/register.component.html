@@ -7,11 +7,22 @@
         <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
             <div class="form-group">
                 <label class="text-muted" for="userName">User Name <span class="required">*</span></label>
-                <input type="text" class="form-control" formControlName="userName">
+                <input type="text" class="form-control" formControlName="userName"
+                    [class.is-invalid]="f.userName.invalid && (submitted || (f.userName.dirty || f.userName.touched))">
+                <div *ngIf="(f.userName.invalid && (submitted || (f.userName.dirty || f.userName.touched)))"
+                    class="invalid-feedback">
+                    <span *ngIf="f.userName.errors.required">Username is required</span>
+                </div>
             </div>
             <div class="form-group">
                 <label class="text-muted" for="emailId">EMAIL ID <span class="required">*</span></label>
-                <input type="email" class="form-control" formControlName="emailId">
+                <input type="email" class="form-control" formControlName="emailId"
+                    [class.is-invalid]="f.emailId.invalid && (submitted || (f.emailId.dirty || f.emailId.touched))">
+                <div *ngIf="f.emailId.invalid && (submitted || (f.emailId.dirty || f.emailId.touched))"
+                    class="invalid-feedback">
+                    <span *ngIf="f.emailId.errors.required">Email Id is required</span>
+                    <span *ngIf="f.emailId.errors.email">Email Id is not valid</span>
+                </div>
             </div>
             <div class="form-group">
                 <label class="text-muted" for="phoneNumber">PHONE NO</label>
@@ -21,9 +32,6 @@
                 <input type="submit" class="btn btn-orange text-white btn-lg mr-2" value="Register">
                 <input type="button" class="btn btn-gray btn-lg" routerLink="/login" value="Already have an account?">
             </div>
-            <app-alert *ngIf="submitted && !registerForm.valid" type="danger"
-                message="Email Id or Password is not valid">
-            </app-alert>
             <app-alert *ngIf="submitted && registerForm.valid" type="success" [message]="message">
             </app-alert>
         </form>

@@ -37,20 +37,30 @@ export class LoginComponent implements OnInit {
   }
 
   /**
+   * getter for access form fields easily
+   */
+  get f() {
+    return this.loginForm.controls;
+  }
+
+  /**
    * Login with crediantials
    * @var emailId string
    * @var password string
    */
   onLogin = () => {
     this.submitted = true;
-    if (this.loginForm.valid) {
-      this.subscription = this.userService.login(this.loginForm.value).subscribe(res => {
-        let r: any = res;
-        this.userService.setUser = { userId: r.userId };
-        this.userService.isUserLoggedIn.next(this.userService.getUser);
-        this.router.navigate(['/home']);
-      });
+    if (!this.loginForm.valid) {
+      return;
     }
+
+    this.subscription = this.userService.login(this.loginForm.value).subscribe(res => {
+      let r: any = res;
+      this.userService.setUser = { userId: r.userId };
+      this.userService.isUserLoggedIn.next(this.userService.getUser);
+      this.loginForm.reset();
+      this.router.navigate(['/home']);
+    });
   }
 
   /**
